@@ -1,0 +1,93 @@
+Aula 2 EDA2
+12/08 (agosto)
+
+Operações em arquivo sequencial ordenado
+
+Inserção de um novo registro
+	Utiliza uma técnica conhecida como *balance-line*
+	Inserir um único registro requer o deslocamento dos demais
+*Balance-line*
+	Gravações são realizadas em um arquivo temporário
+	Periodicamente estas operações são efetivadas no arquivo original
+	Para a efetivação é realizada a intercalação dos arquivos
+		- Esta intercalação (temporário e principal) resultará em um novo arquivo
+
+Procedimentos para inserção de um novo registro
+	Criar um arquivo de transação (temporário) com registro a gravar
+		- Transação é uma sequência de operações para consistência dos dados
+		- Conduz os dados de um estado consistente para outro estado consistente
+	Ordenar o arquivo temporário da mesma forma que o arquivo mestre
+	Intercalar os dois arquivos periodicamente
+		- Gera-se um novo mestre com os registros reorganizados
+
+		Mestre ---- *balance-line* ---- Transação
+				|
+				|
+		            Novo Mestre
+
+
+Exclusão de um registro existente
+	Usa-se *balance-line* ou atributo adicional
+		- Atributo adicional para indicar o estado do registro como excluído
+		- Ou seja, com atributo adicional exclusão é apenas lógica
+		- Acesso de leitura deve ignorar os registros marcados como excluídos
+
+Alteração de um registro existente
+	Usa-se *balance-line*
+	A alteração pode
+		- Causar aumento do tamanho do registro
+		- Modificar valor do campo usado como chave de ordenação
+
+
+
+Arquivo sequencial indexado
+
+Arquivo sequencial indexado
+	Arquivo sequencial com índice e área de extensão
+Área de índices 
+	Arquivo sequencial criado pelo sistema
+	Cada registro deste arquivo estabelece uma divisão na área primária
+	Contém o endereço do início do segmento e a chave mais alta do mesmo
+	O sistema pode acessar de maneira direta um segmento da área de índices
+	Similar a busca por um capítulo de um livro a partir de seu índice
+	
+Área primária (principal)
+	Reservada para manter os registros de dados
+	Os registros são classifacados em ordem ascendente pela chave primária
+	
+Área de excedentes (overflow)
+	Reservada para novos registros que não podem ser mantidos na área principal
+	
+______________
+|   Índice    |
+|Área Primária|
+|Área Extensão|
+|_____________|
+
+
+
+
+Arquivo indexado
+
+Motivação
+	Para oferecer um acesso sequencial eficiente, os arquivos sequenciais ordenados requerem que os registros fisicamente ordenados
+	Isto dificulta a inserção de um registro e exigindo
+		- Utilização de áreas de extensão
+		- Efetivação de reorganizações periódicas
+	A manutenção da sequência dos registros torna-se inviável quando
+		- Frequência de acessos sequenciais for baixa
+		- Frequência de acessos aleatórios for alta
+
+Definição
+	Existência de um ou mais índices para acesso aos registros
+		- Não há qualquer compromisso com a ordem física dos registros
+		- Considera a possibilidade de acesso por qualquer atributo do registro
+
+Índice exaustivo
+Índice seletivo
+	Conjunto discreto e finito de registros por um índice
+Arquivo direto
+	Motivação
+		- Acesso direto aos registros especificados por argumentos de pesquisa, sem percorrer uma estrutura auxiliar (índice)
+	Definição
+		- Ao invés de um índice, é utilizada uma função (hashing) que calcula o endereço a partir do valor da chave de registro.

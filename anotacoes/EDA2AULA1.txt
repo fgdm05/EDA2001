@@ -1,0 +1,34 @@
+Estratégias de organização de arquivos
+Diferentes cenários ou problemas com determinadas características requerem diferentes soluções para aumentar a eficiência.
+
+Arquivo sequencial simples
+Arquivo sequencial ordenado
+Arquivo sequencial-indexado
+Arquivo indexado
+Arquivo direto
+Arquivo invertido
+
+
+Definições sobre registros e arquivos
+Arquivo
+	Coleção de registros lógicos, representando um objeto ou entidade
+Registro lógico
+	Sequência de itens que representam campos ou atributos do registro
+		- Atributo é um prop. constituída por nome, tipo e comprimento
+		- Observação: o comprimento pode ser constante ou variável
+Registro físico
+	Armazenamento dos registros lógicos (leitura e gravação) em blocos
+		- Tamanho do bloco coincide com uma unidade de armazenamento utilizada pelo meio físico (setores e trilhas de um hard-disk, por exemplo)
+		- Cada bloco armazena um número inteiro de registros.
+
+Chave
+	Sequência de um ou mais atributos de um registro
+Chave primária
+	Atributo que identifica exclusivamente cada registro do arquivo
+Chave secundária
+	Atributo utilizada para identificação (geralmente em índices)
+	Pode ter seu valor repetido em diferentes registros
+Chave de acesso
+	Chave utilizada para identificar registros em uma operação de leitura
+
+
