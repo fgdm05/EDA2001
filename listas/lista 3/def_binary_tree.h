@@ -13,6 +13,7 @@
     Arvore* cria();
     int vazia(Arvore* arvore);
     No* adiciona(Arvore* arvore, No* pai, float valor);
+    void adiciona_unival(Arvore* arvore, No* pai, float valor);
     void adiciona_v2(Arvore* arvore, float valor);
     void remover(Arvore* arvore, No* no);
 #endif

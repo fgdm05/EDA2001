@@ -34,6 +34,24 @@ No* adiciona(Arvore* arvore, No* pai, float valor) {
     return no;
 }
 
+void adiciona_unival(Arvore* arvore, No* pai, float valor) {
+    No* no = malloc(sizeof(No));
+    no->pai = pai;
+    no->esquerda = no->direita = NULL;
+    no->v = valor;
+
+    if(pai == NULL){
+        arvore->raiz = no;
+        return;
+    } 
+    if(pai->esquerda == NULL) {
+        pai->esquerda = no;
+    } else if(pai->direita == NULL) {
+        pai->direita = no;
+    }
+    
+}
+
 void adiciona_v2(Arvore* arvore, float valor) {
     printf("\nINSERINDO %.0f", valor);
     if(arvore->raiz == NULL) {
