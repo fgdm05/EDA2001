@@ -1,6 +1,8 @@
 #include "def_binary_tree.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
+
 Arvore* cria() {
     Arvore *arvore = malloc(sizeof(Arvore));
     arvore->raiz = NULL;
@@ -11,6 +13,7 @@ int vazia(Arvore* arvore) {
     return (arvore->raiz == NULL);
 }
 
+// Apontar no parâmetro pai um ponteiro para o pai do novo valor
 No* adiciona(Arvore* arvore, No* pai, float valor) {
     No *no = malloc(sizeof(No));
 
@@ -30,52 +33,43 @@ No* adiciona(Arvore* arvore, No* pai, float valor) {
 
     return no;
 }
-#include <stdio.h>
+
 void adiciona_v2(Arvore* arvore, float valor) {
-    
+    printf("\nINSERINDO %.0f", valor);
     if(arvore->raiz == NULL) {
+        printf("\nRAIZ NULA => CRIAR RAIZ\n");
         arvore->raiz = malloc(sizeof(No));
-        arvore->raiz->pai = arvore->raiz->esquerda = arvore->raiz->direita = NULL;
         arvore->raiz->v = valor;
-        printf("\n%.0f", arvore->raiz->v);
+        arvore->raiz->esquerda = arvore->raiz->direita = arvore->raiz->pai = NULL;    
         return;
     }
-    
-    if(arvore->raiz->v == valor) {
-        printf("\nACHADO");
-        return;
-    }
+
     No* aux = arvore->raiz;
-    No* novo = malloc(sizeof(No));
-    novo->esquerda = novo->direita = NULL;
     while(aux != NULL) {
-        printf("\n<%.0f, %.0f>", aux->v, valor);
+        printf("\n<raiz: %f, novo: %f>", aux->v, valor);
         if(valor < aux->v) {
-            printf("\nESQUERDA");
-            
             if(aux->esquerda == NULL) {
-                printf("\nESQVAZ");
-                novo->pai = aux;
-                aux->esquerda = novo;
-            } else {
-                aux = aux->esquerda;
+                aux->esquerda = malloc(sizeof(No));
+                aux->esquerda->direita = aux->esquerda->esquerda = NULL;
+                aux->esquerda->pai = aux;
+                aux->esquerda->v = valor;
+                break;
             }
-
-        } else {
-            printf("\nDIREITA");
-
+            aux = aux->esquerda;
+        } else if(valor > aux->v) {
             if(aux->direita == NULL) {
-                printf("\nDIRVAZ");
-                novo->pai = aux;
-                aux->direita = novo;
-            } else {
-                aux = aux->direita;
+                aux->direita = malloc(sizeof(No));
+                aux->direita->direita = aux->direita->esquerda = NULL;
+                aux->direita->pai = aux;
+                aux->direita->v = valor;
+                break;
             }
+            aux = aux->direita;
+        } else {
+            break;
         }
-        return;
     }
-    
-    
+    printf("\n");
 }
 void remover(Arvore* arvore, No* no) {
     if(no->esquerda != NULL)
